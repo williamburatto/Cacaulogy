@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CacaulogyFermentationTelemetry",
+  "description": "Payload de telemetria termodinâmica e química para monitoramento de bioprocessos de fermentação de cacau.",
+  "type": "object",
+  "required": [
+    "lot_id",
+    "sensor_node_id",
+    "timestamp",
+    "fermentation_hour",
+    "internal_mass_temperature_c",
+    "pulp_ph",
+    "cotyledon_ph"
+  ],
+  "properties": {
+    "lot_id": {
+      "type": "string",
+      "description": "Identificador único global do lote de cacau (Lot ID) em processamento."
+    },
+    "sensor_node_id": {
+      "type": "string",
+      "description": "ID exclusivo da sonda física de IoT (ex: baseada em ESP32) inserida no cocho."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data e hora exata da leitura em padrão ISO 8601."
+    },
+    "fermentation_hour": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Tempo decorrido de fermentação em horas (ex: 36.5 para 36 horas e meia)."
+    },
+    "internal_mass_temperature_c": {
+      "type": "number",
+      "minimum": 15.0,
+      "maximum": 60.0,
+      "description": "Temperatura interna da massa de cacau em graus Celsius (esperado pico térmico próximo a 48.5 °C)."
+    },
+    "ambient_temperature_c": {
+      "type": "number",
+      "description": "Temperatura ambiente externa ao cocho em graus Celsius."
+    },
+    "ambient_humidity_pct": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Umidade relativa do ar ambiente externa em porcentagem."
+    },
+    "pulp_ph": {
+      "type": "number",
+      "minimum": 2.0,
+      "maximum": 7.0,
+      "description": "Medição do pH da polpa ácida externa da amêndoa."
+    },
+    "cotyledon_ph": {
+      "type": "number",
+      "minimum": 3.0,
+      "maximum": 8.0,
+      "description": "Medição do pH interno do cotilédone (revelador da penetração de ácidos orgânicos)."
+    },
+    "turning_event_detected": {
+      "type": "boolean",
+      "description": "Sinalizador booleano ativado se uma reviragem (aeração física do lote) foi realizada neste registro."
+    }
+  }
+}

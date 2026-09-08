@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CacaulogyRoastingProfile",
+  "description": "Registro do perfil térmico contínuo e parametrização do ciclo de torrefação industrial.",
+  "type": "object",
+  "required": [
+    "lot_id",
+    "roaster_machine_id",
+    "timestamp",
+    "roast_profile_id",
+    "charge_temperature_c",
+    "roast_time_series"
+  ],
+  "properties": {
+    "lot_id": {
+      "type": "string",
+      "description": "Identificador único global do lote de amêndoas cruas."
+    },
+    "roaster_machine_id": {
+      "type": "string",
+      "description": "Identificador do maquinário/torrador industrial utilizado."
+    },
+    "roast_profile_id": {
+      "type": "string",
+      "description": "Nome ou hash do perfil algorítmico preditivo recomendado pelo SaaS."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Data e hora de início do processo de torra."
+    },
+    "charge_temperature_c": {
+      "type": "number",
+      "description": "Temperatura do torrador no momento da carga inicial das amêndoas."
+    },
+    "drop_temperature_c": {
+      "type": "number",
+      "description": "Temperatura final das amêndoas no momento do descarregamento (resfriamento)."
+    },
+    "total_duration_seconds": {
+      "type": "integer",
+      "description": "Tempo total do ciclo de torrefação em segundos."
+    },
+    "roast_time_series": {
+      "type": "array",
+      "description": "Série temporal contínua registrando a temperatura em intervalos regulares.",
+      "items": {
+        "type": "object",
+        "required": ["elapsed_seconds", "bean_temperature_c"],
+        "properties": {
+          "elapsed_seconds": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Segundos decorridos desde o início do ciclo."
+          },
+          "bean_temperature_c": {
+            "type": "number",
+            "description": "Temperatura real medida na massa de amêndoas naquele segundo."
+          },
+          "air_temperature_c": {
+            "type": "number",
+            "description": "Temperatura do ar quente de exaustão dentro do tambor."
+          },
+          "burner_level_pct": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Nível de intensidade do queimador (potência de chama) naquele instante."
+          }
+        }
+      }
+    }
+  }
+}
